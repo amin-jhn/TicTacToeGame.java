@@ -18,7 +18,7 @@ import java.util.Random;
 public class Main extends JFrame {
     private int gameWidth;
     private final int gameHeight;
-    private final Font defaultFont = new Font("Baghdad", Font.BOLD,20);
+    private final Font defaultFont = new Font("Impact", Font.ROMAN_BASELINE,30);
     private JTextField nameTxt;
     private final Main me;
     static String name;
@@ -49,7 +49,7 @@ public class Main extends JFrame {
     }
 
     private void initBottomPnl() {
-        JButton start = new JButton("Start");
+        JButton start = new JButton("START");
         start.setFont(defaultFont);
         add(start, BorderLayout.PAGE_END);
         start.addActionListener(e -> {
@@ -93,9 +93,9 @@ public class Main extends JFrame {
 
     private void initCenterPnl() {
         JPanel centerPnl = new JPanel(new GridLayout(1, 1, 5, 5));
-
-        JLabel nameLbl = new JLabel("Enter A Name:");
+        JLabel nameLbl = new JLabel();
         nameLbl.setFont(defaultFont);
+        nameLbl.setText("ENTER A NAME:");
         nameLbl.setHorizontalAlignment(SwingConstants.CENTER);
 
         nameTxt = new JTextField("");
@@ -371,5 +371,4 @@ public class Main extends JFrame {
             }
         }
     }
-
 }
