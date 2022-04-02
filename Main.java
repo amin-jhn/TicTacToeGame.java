@@ -1,3 +1,4 @@
+import javax.imageio.ImageIO;
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import javax.swing.event.ChangeEvent;
@@ -9,6 +10,9 @@ import java.awt.event.*;
 import java.awt.geom.Ellipse2D;
 import java.awt.geom.Line2D;
 import java.awt.geom.Rectangle2D;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
 import java.util.Random;
 
 public class Main extends JFrame {
@@ -29,7 +33,7 @@ public class Main extends JFrame {
         return pchoice;
     }
 
-    public Main() {
+    public Main() throws IOException {
         me = this;
         setSize(600,600);
         setLocationRelativeTo(null);
@@ -124,15 +128,15 @@ public class Main extends JFrame {
 
     }
 
-    private void initTopPnl() {
+    private void initTopPnl() throws IOException {
         JPanel topPnl = new JPanel(new FlowLayout());
-        JLabel gameTxt = new JLabel("TICK TACK TOE");
-        gameTxt.setFont(new Font("Ink Free",Font.BOLD,60));
+        BufferedImage pic = ImageIO.read(new File("unnamed.png"));
+        JLabel gameTxt = new JLabel(new ImageIcon(pic));
         topPnl.add(gameTxt);
         add(topPnl,BorderLayout.PAGE_START);
     }
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException {
         new Main();
     }
 
@@ -187,7 +191,7 @@ public class Main extends JFrame {
                 g2d.setPaint(Color.WHITE);
                 g2d.fill(new Rectangle2D.Double(0, 0, w, h));
                 g2d.setPaint(Color.BLACK);
-                int lineThickness = 4;
+                int lineThickness = 5;
                 g2d.setStroke(new BasicStroke(lineThickness));
                 g2d.draw(new Line2D.Double(0, h / 3, w, h / 3));
                 g2d.draw(new Line2D.Double(0, h * 2 / 3, w, h * 2 / 3));
