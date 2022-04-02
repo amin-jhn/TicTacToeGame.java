@@ -25,9 +25,6 @@ public class TicTacToe extends JFrame implements ChangeListener, ActionListener 
     public TicTacToe() {
         setTitle("Tick Tack Toe");
         JPanel topPanel=new JPanel();
-        topPanel.setLayout(new FlowLayout());
-        JLabel turnWho = new JLabel();
-        add(topPanel, BorderLayout.NORTH);
         add(new Board(), BorderLayout.CENTER);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setSize(500, 500);
@@ -71,16 +68,16 @@ public class TicTacToe extends JFrame implements ChangeListener, ActionListener 
             g2d.setPaint(Color.BLACK);
             int lineThickness = 4;
             g2d.setStroke(new BasicStroke(lineThickness));
-            g2d.draw(new Line2D.Double(0, h/3, w, h/3));
-            g2d.draw(new Line2D.Double(0, h*2/3, w, h*2/3));
-            g2d.draw(new Line2D.Double(w/3, 0, w/3, h));
-            g2d.draw(new Line2D.Double(w*2/3, 0, w*2/3, h));
+            g2d.draw(new Line2D.Double(0, h / 3, w, h / 3));
+            g2d.draw(new Line2D.Double(0, h * 2 / 3, w, h * 2 / 3));
+            g2d.draw(new Line2D.Double(w / 3, 0, w / 3, h));
+            g2d.draw(new Line2D.Double(w * 2 / 3, 0, w * 2 / 3, h));
 
             for (int i=0; i<9; i++) {
-                double xpos=(i%3+0.5)*w/3.0;
-                double ypos=(i/3+0.5)*h/3.0;
-                double xr=w/8.0;
-                double yr=h/8.0;
+                double xpos = (i % 3 + 0.5) * w / 3.0;
+                double ypos = (i / 3 + 0.5) * h / 3.0;
+                double xr = w / 8.0;
+                double yr = h / 8.0;
                 if (cells[i]==Room.O) {
                     g2d.setPaint(new Color(0xB70202));
                     g2d.draw(new Ellipse2D.Double(xpos-xr, ypos-yr, xr*2, yr*2));
@@ -169,29 +166,29 @@ public class TicTacToe extends JFrame implements ChangeListener, ActionListener 
             int num;
             if (Main.getchoice()==1) num = findRow(Room.X);
             else num = findRow(Room.O);
-            if (num<0)
+            if (num < 0)
                 if (Main.getchoice()==1) num = findRow(Room.O);
                 else num = findRow(Room.X);
-            if (num<0) {
+            if (num < 0) {
                 do
                     num=random.nextInt(9);
-                while (cells[num]!=Room.empty);
+                while (cells[num] != Room.empty);
             }
             if (Main.getchoice()==1) cells[num]=Room.X;
-            else cells[num]=Room.O;
+            else cells[num] = Room.O;
         }
 
         int findRow(Room player) {
-            for (int i=0; i<8; ++i) {
-                int result=findXWays(player, rows[i][0], rows[i][1]);
-                if (result>=0)
+            for (int i = 0; i < 8; i++) {
+                int result = findCrossWays(player, rows[i][0], rows[i][1]);
+                if (result >= 0)
                     return result;
             }
             return -1;
         }
 
 
-        int findXWays(Room player, int a, int b) {
+        int findCrossWays(Room player, int a, int b) {
             int middlePoint = (a+b)/2;
             if (cells[a] == player && cells[b] == player && cells[middlePoint] == Room.empty)
                 return middlePoint;

@@ -1,20 +1,19 @@
-import javafx.scene.text.Text;
-
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
 import java.awt.*;
-import java.awt.event.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 
 public class Main extends JFrame {
-    private boolean gameTYPE; //True means PvE
     private int gameWidth;
-    private int gameHeight;
-    private Font defaultFont = new Font("Tahoma", Font.BOLD,20);
-    private JPanel bottomPnl;
+    private final int gameHeight;
+    private final Font defaultFont = new Font("Baghdad", Font.BOLD,20);
     private JTextField nameTxt;
-    private Main me;
+    private final Main me;
     static String name;
     private static int pchoice;
 
@@ -46,32 +45,29 @@ public class Main extends JFrame {
         JButton start = new JButton("Start");
         start.setFont(defaultFont);
         add(start, BorderLayout.PAGE_END);
-        start.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                if(checkSize()){
-                    String[] options = new String[]{"Yes","No"};
-                    int sw = -1;
-                    while (sw == -1) {
-                        sw = JOptionPane.showOptionDialog(me, "Would you like to start the game as X?",
-                                "Game Starter", JOptionPane.YES_NO_CANCEL_OPTION,
-                                JOptionPane.QUESTION_MESSAGE,
-                                null, options, options[0]);
-                    }
-                    pchoice = sw;
-                    TicTacToe game = new TicTacToe();
-                    setVisible(false);
-                    game.addWindowListener(new WindowAdapter() {
-                        @Override
-                        public void windowClosed(WindowEvent e) {
-                            setVisible(true);
-                        }
-                    });
-                } else {
-                    JOptionPane.showMessageDialog(me,
-                            "Name Field Cant Be Empty!",
-                            "Error", JOptionPane.ERROR_MESSAGE);
+        start.addActionListener(e -> {
+            if(checkSize()){
+                String[] options = new String[]{"Yes","No"};
+                int sw = -1;
+                while (sw == -1) {
+                    sw = JOptionPane.showOptionDialog(me, "Would you like to start the game as X?",
+                            "Game Starter", JOptionPane.YES_NO_CANCEL_OPTION,
+                            JOptionPane.QUESTION_MESSAGE,
+                            null, options, options[0]);
                 }
+                pchoice = sw;
+                TicTacToe game = new TicTacToe();
+                setVisible(false);
+                game.addWindowListener(new WindowAdapter() {
+                    @Override
+                    public void windowClosed(WindowEvent e) {
+                        setVisible(true);
+                    }
+                });
+            } else {
+                JOptionPane.showMessageDialog(me,
+                        "Name Field Cant Be Empty!",
+                        "Error", JOptionPane.ERROR_MESSAGE);
             }
         });
     }
@@ -131,30 +127,6 @@ public class Main extends JFrame {
         gameTxt.setFont(new Font("Ink Free",Font.BOLD,60));
         topPnl.add(gameTxt);
         add(topPnl,BorderLayout.PAGE_START);
-        /*JToggleButton gameTypeBtnPvE = new JToggleButton("PvE");
-        JToggleButton gameTypeBtnPvP = new JToggleButton("PvP");
-        gameTypeBtnPvE.setFont(defaultFont);
-        gameTypeBtnPvP.setFont(defaultFont);
-        gameTypeBtnPvE.setSelected(true);
-        gameTYPE = true;
-        topPnl.add(gameTypeBtnPvE);
-        topPnl.add(gameTypeBtnPvP);
-
-        ActionListener gameFounder = new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                if (e.getActionCommand().equals("PvE")) {
-                    gameTypeBtnPvP.setSelected(!gameTypeBtnPvP.isSelected());
-                }
-                else gameTypeBtnPvE.setSelected(!gameTypeBtnPvE.isSelected());
-                gameTYPE = gameTypeBtnPvE.isSelected();
-            }
-        };
-
-        gameTypeBtnPvE.addActionListener(gameFounder);
-        gameTypeBtnPvP.addActionListener(gameFounder);
-        add(topPnl, BorderLayout.PAGE_START);*/
-
     }
 
     public static void main(String[] args) {
